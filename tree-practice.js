@@ -5,23 +5,82 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 // Practice problems on binary trees
 
 function findMinBST (rootNode) {
-  // Your code here
+  if(rootNode.left){
+    return findMinBST(rootNode.left)
+  }
+  if(!rootNode.left){
+    return rootNode.val;
+  }
+
+
 }
 
 function findMaxBST (rootNode) {
-  // Your code here
+  if(rootNode.right){
+    return findMaxBST(rootNode.right)
+  }
+  if(!rootNode.right){
+    return rootNode.val;
+  }
 }
 
 function findMinBT (rootNode) {
-  // Your code here
+  const queue = [rootNode];
+  let min = []
+
+  if(!queue) return this;
+  while(queue.length > 0){
+    let node = queue.shift();
+   //console.log(node);
+    min.push(node.val)
+    if(node.left) queue.push(node.left);
+    if(node.right) queue.push(node.right);
+  // if(rootNode.left){
+  //   rootNode.val
+  // }
+  }
+  return Math.min(...min);
+
+
 }
 
 function findMaxBT (rootNode) {
-  // Your code here
+  let max = rootNode.val;
+  if(rootNode.left){
+    max = Math.max(max, findMaxBT(rootNode.left));
+  }
+  if(rootNode.right){
+    max = Math.max(max, findMaxBT(rootNode.right));
+  }
+  return max
+
 }
 
 function getHeight (rootNode) {
-  // Your code here
+  if(!rootNode) return -1;
+  if(!rootNode.right && !rootNode.left) return 0;
+
+  return 1 + Math.max(getHeight(rootNode.left), getHeight(rootNode.right))
+
+  // let leftCount = 0;
+  // let rightCount = 0;
+
+  // if(rootNode.left){
+  //   leftCount++
+  //   getHeight(rootNode.left)
+  // }
+  // if(rootNode.right){
+  //   rightCount++
+  //  getHeight(rootNode.right)
+  // }
+  // console.log(leftCount);
+  // console.log(rightCount)
+  // if(leftCount === rightCount){
+  //   return leftCount;
+  // }
+  // return Math.max(leftCount, rightCount)
+
+
 }
 
 function balancedTree (rootNode) {
@@ -29,7 +88,8 @@ function balancedTree (rootNode) {
 }
 
 function countNodes (rootNode) {
-  // Your code here
+
+
 }
 
 function getParentNode (rootNode, target) {
@@ -55,7 +115,7 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side, 
+  //  Replace target node with the left most child on its right side,
   //  or the right most child on its left side.
   //  Then delete the child that it was replaced with.
 
